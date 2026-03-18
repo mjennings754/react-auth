@@ -6,6 +6,12 @@ export const registerUser = async (userData) => {
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(userData),
     });
+
+    if (!res.ok) {
+        const text = await res.text();
+        console.error("Register error response:", text);
+        throw new Error("Email or username has already been used.");
+    }
     return res.json();
 };
 
