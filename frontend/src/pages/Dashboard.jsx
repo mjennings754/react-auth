@@ -25,9 +25,11 @@ export default function Dashboard() {
 
     return (
         <div>
+            <header>
             <h2>Dashboard</h2>
+            </header>
             <p>Welcome, {user?.username} </p>
-            <button onClick={handleLogout}>Logout</button>
+            <button className="btn-logout" onClick={handleLogout}>Logout</button>
         </div>
     )
 }

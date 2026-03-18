@@ -27,11 +27,15 @@ export default function Login() {
 };
   return (
     <>
-    <form onSubmit={handleSubmit}>
+    <div className="container-session">
+      <h2>Sign in to [ACME_APP]</h2>
+      <form onSubmit={handleSubmit}>
+      <p className="field-title">Email address</p>
       <input
       placeholder="Email"
       onChange={(e) => setForm({ ...form, email: e.target.value})}
       />
+      <p className="field-title">Password</p>
       <input 
       type="password"
       placeholder="password"
@@ -39,7 +43,8 @@ export default function Login() {
       />
       <button type="submit">Sign in</button>
     </form>
-    <p>Don't have an account? <Link to="/register">Register</Link></p>
+    <p className="text-center">Don't have an account? <Link to="/register" className="btn-secondary">Register</Link></p>
+    </div>
     </>
   );
 }
