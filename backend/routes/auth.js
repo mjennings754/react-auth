@@ -27,3 +27,27 @@ router.post("/register", async (req, res) => {
         res.status(500).send("Server error");
     }
 });
+
+router.post("/login", async (req, res) => {
+    try {
+        const {email, password} = req.body;
+
+        const user = await User.findOne({ email});
+        if (!user) return res.status(400).json({message: "Email or password is incorrect"});
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(400).json({message: "Email or password is incorrect"});
+
+        const token = jwt.sign(
+            {id: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h"}
+        );
+
+        res.json({ token, user: { id: user._id, username: user.username}});
+    } catch (error) {
+        res.status(500).send("Server error");
+    }
+})
+
+module.exports = router;
